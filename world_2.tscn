@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://dxpya1wxl1o5v"]
+
+[ext_resource type="PackedScene" uid="uid://dxup7b3orsq1" path="res://kart.tscn" id="1_v7ald"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_df8j5"]
+
+[sub_resource type="Sky" id="Sky_6d21b"]
+sky_material = SubResource("ProceduralSkyMaterial_df8j5")
+
+[sub_resource type="Environment" id="Environment_ndmlo"]
+background_mode = 2
+background_energy_multiplier = 2.5
+sky = SubResource("Sky_6d21b")
+ambient_light_source = 3
+
+[sub_resource type="Curve3D" id="Curve3D_mt663"]
+_data = {
+"points": PackedVector3Array(-9.60815, 0, -56.3678, 9.60815, 0, 56.3678, 67.2571, 0, -109.853, -23.0596, 0, -21.7785, 23.0596, 0, 21.7785, 48.0407, 0, 1.60137, -66.6165, 0, -22.419, 66.6165, 0, 22.419, 181.589, -22.4705, -46.8594, 32.6677, 0, -47.4002, -32.6677, 0, 47.4002, 184.477, 0, 62.453, 29.465, 0, -2.56218, -29.465, 0, 2.56218, 72.1646, 11.287, 84.7957, 25.6217, 0, -12.1703, -25.6217, 0, 12.1703, 15.373, 0, 113.056, 44.7698, 0, 16.6898, -44.7698, 0, -16.6898, -78.3031, -16.9275, 108.28, -9.60815, 0, 52.5246, 9.60815, 0, -52.5246, -136.436, 0, 15.6933, -16.0136, 0, 19.8569, 16.0136, 0, -19.8569, -56.8169, 16.9047, -40.9277, -32.0272, 0, 25.6217, 32.0272, 0, -25.6217, -39.7137, 0, -160.456, -9.60815, 0, -56.3678, 9.60815, 0, 56.3678, 67.2571, 0, -109.853),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 11
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_umyki"]
+albedo_color = Color(0.156863, 0.156863, 0.156863, 1)
+
+[node name="World2" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ndmlo")
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_mt663")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+use_collision = true
+polygon = PackedVector2Array(0, 0, 0, 1, 25, 1, 25, 0)
+mode = 2
+path_node = NodePath("../Path3D")
+path_interval_type = 0
+path_interval = 2.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = SubResource("StandardMaterial3D_umyki")
+
+[node name="Kart" parent="." instance=ExtResource("1_v7ald")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.004, 10, 0)

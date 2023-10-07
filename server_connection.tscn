@@ -1,0 +1,80 @@
+[gd_scene load_steps=2 format=3 uid="uid://bc3m3e677kpsm"]
+
+[ext_resource type="Script" path="res://server_connection.gd" id="1_7csu3"]
+
+[node name="ServerConnection" type="CenterContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7csu3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(360, 196)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="AddressContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/AddressContainer"]
+layout_mode = 2
+text = "Address:"
+
+[node name="AddrLineEdit" type="LineEdit" parent="VBoxContainer/VBoxContainer/AddressContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "127.0.0.1"
+
+[node name="PortContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/PortContainer"]
+layout_mode = 2
+text = "Port:"
+
+[node name="PortLineEdit" type="LineEdit" parent="VBoxContainer/VBoxContainer/PortContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "4343"
+
+[node name="PlayerInfoContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/PlayerInfoContainer"]
+layout_mode = 2
+text = "Name:"
+
+[node name="NameLineEdit" type="LineEdit" parent="VBoxContainer/PlayerInfoContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Babar"
+
+[node name="MultiplayerContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HostButton" type="Button" parent="VBoxContainer/MultiplayerContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Host
+"
+
+[node name="JoinButton" type="Button" parent="VBoxContainer/MultiplayerContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Join"
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Start game"
+
+[connection signal="pressed" from="VBoxContainer/MultiplayerContainer/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MultiplayerContainer/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]

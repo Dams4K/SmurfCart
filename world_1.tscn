@@ -1,0 +1,74 @@
+[gd_scene load_steps=6 format=3 uid="uid://cfmoh06akngio"]
+
+[ext_resource type="PackedScene" uid="uid://bwr22vfy7ne51" path="res://vroom_vroom.tscn" id="1_2gipe"]
+
+[sub_resource type="Curve3D" id="Curve3D_0gpeb"]
+_data = {
+"points": PackedVector3Array(-0.079649, 0, 1.38588, 0.079649, 0, -1.38588, -24.737, 0, -12.4372, -12.3685, 0, 0, 12.3685, 0, 0, -1.78656, 0, -23.4314, -1.32185, 0, -15.0022, 1.32185, 0, 15.0022, 23.5526, 0, -1.87784, 5.10538, 0, -6.75495, -5.10538, 0, 6.75495, 15.6668, 0, 25.218, 9.48251, 0, 9.48251, -9.48251, 0, -9.48251, -21.9884, 0, 24.5308, -0.96199, 0, 2.06142, 0.96199, 0, -2.06142, -24.737, 0, -12.4372),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0)
+}
+point_count = 6
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kujx3"]
+
+[sub_resource type="Sky" id="Sky_qaxds"]
+sky_material = SubResource("ProceduralSkyMaterial_kujx3")
+
+[sub_resource type="Environment" id="Environment_3k5y6"]
+background_mode = 2
+background_energy_multiplier = 2.5
+sky = SubResource("Sky_qaxds")
+ambient_light_source = 3
+
+[node name="World1" type="Node3D"]
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_0gpeb")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+use_collision = true
+polygon = PackedVector2Array(0, 0, 0, 3, 10, 3, 10, 0)
+mode = 2
+path_node = NodePath("../Path3D")
+path_interval_type = 0
+path_interval = 0.8
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = true
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="."]
+use_collision = true
+polygon = PackedVector2Array(0, 0, 0, 4, 1, 4, 1, 0)
+mode = 2
+path_node = NodePath("../Path3D")
+path_interval_type = 0
+path_interval = 0.1
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = true
+
+[node name="CSGPolygon3D3" type="CSGPolygon3D" parent="."]
+use_collision = true
+polygon = PackedVector2Array(9, 0, 9, 4, 10, 4, 10, 0)
+mode = 2
+path_node = NodePath("../Path3D")
+path_interval_type = 0
+path_interval = 0.1
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = true
+
+[node name="VroomVroom" parent="." instance=ExtResource("1_2gipe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.7375, 3.90614, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3k5y6")

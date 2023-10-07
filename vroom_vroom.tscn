@@ -1,0 +1,117 @@
+[gd_scene load_steps=7 format=3 uid="uid://bwr22vfy7ne51"]
+
+[ext_resource type="Script" path="res://vroom_vroom.gd" id="1_2yps3"]
+[ext_resource type="PackedScene" uid="uid://b3rwk3677hyk7" path="res://phone_control.tscn" id="2_468q8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_6eqyq"]
+size = Vector3(2.75, 0.5, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cpqll"]
+size = Vector3(2.72874, 0.236497, 2.79177)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xxiyt"]
+height = 0.3
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_18tkg"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+properties/1/path = NodePath(".:engine_force")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
+properties/2/path = NodePath(".:brake")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
+properties/3/path = NodePath(".:steering")
+properties/3/spawn = true
+properties/3/sync = true
+properties/3/watch = false
+properties/4/path = NodePath(".:rotation")
+properties/4/spawn = true
+properties/4/sync = true
+properties/4/watch = false
+
+[node name="VroomVroom" type="VehicleBody3D"]
+mass = 120.0
+script = ExtResource("1_2yps3")
+front_stiffness = 1000.0
+front_max_force = 32000.0
+front_travel = 50.0
+front_friction_slip = 1000.0
+front_compression = 0.1
+back_stiffness = 1000.0
+back_max_force = 32000.0
+back_travel = 50.0
+back_friction_slip = 1000.0
+back_compression = 0.1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_6eqyq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_cpqll")
+
+[node name="WheelFrontRight" type="VehicleWheel3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1, 0, -1.245)
+use_as_steering = true
+wheel_friction_slip = 50.83
+suspension_stiffness = 1000.0
+damping_compression = 1.9
+damping_relaxation = 2.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WheelFrontRight"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_xxiyt")
+
+[node name="WheelBackRight" type="VehicleWheel3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 1, 0, -1.245)
+use_as_traction = true
+wheel_friction_slip = 60.0
+suspension_stiffness = 1000.0
+suspension_max_force = 6000.95
+damping_compression = 1.9
+damping_relaxation = 2.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WheelBackRight"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_xxiyt")
+
+[node name="WheelFrontLeft" type="VehicleWheel3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1, 0, 1.25539)
+use_as_steering = true
+wheel_friction_slip = 100.0
+suspension_stiffness = 1000.0
+damping_compression = 1.9
+damping_relaxation = 2.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WheelFrontLeft"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_xxiyt")
+
+[node name="WheelBackLeft" type="VehicleWheel3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 1, 0, 1.25539)
+use_as_traction = true
+wheel_friction_slip = 60.0
+suspension_stiffness = 1000.0
+damping_compression = 1.9
+damping_relaxation = 2.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WheelBackLeft"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_xxiyt")
+
+[node name="PhoneControl" parent="." instance=ExtResource("2_468q8")]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+transform = Transform3D(-4.37114e-08, -0.5, 0.866026, 0, 0.866026, 0.5, -1, 2.18557e-08, -3.78552e-08, 0, 0, 0)
+spring_length = 10.0
+margin = 0.001
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+current = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_18tkg")

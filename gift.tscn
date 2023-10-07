@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://b56tuobwjg0m3"]
+
+[ext_resource type="Script" path="res://gift.gd" id="1_m2yjk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_fv4ik"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_t1e0a"]
+radius = 0.75
+
+[sub_resource type="Animation" id="Animation_bmgq5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.5, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ox0nl"]
+resource_name = "move"
+length = 1.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.2, 0), Vector3(0, 0.2, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f8sjp"]
+_data = {
+"RESET": SubResource("Animation_bmgq5"),
+"move": SubResource("Animation_ox0nl")
+}
+
+[node name="Gift" type="Node3D"]
+script = ExtResource("1_m2yjk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707107, 0.707107, 0, -0.5, 0.5, -0.707107, -0.5, 0.5, 0.707107, 0, -0.5, 0)
+mesh = SubResource("BoxMesh_fv4ik")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_t1e0a")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "move"
+libraries = {
+"": SubResource("AnimationLibrary_f8sjp")
+}
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
