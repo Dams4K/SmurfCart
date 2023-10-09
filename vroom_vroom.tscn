@@ -35,18 +35,9 @@ properties/4/sync = true
 properties/4/watch = false
 
 [node name="VroomVroom" type="VehicleBody3D"]
-mass = 120.0
+mass = 125.0
+gravity_scale = 4.0
 script = ExtResource("1_2yps3")
-front_stiffness = 1000.0
-front_max_force = 32000.0
-front_travel = 50.0
-front_friction_slip = 1000.0
-front_compression = 0.1
-back_stiffness = 1000.0
-back_max_force = 32000.0
-back_travel = 50.0
-back_friction_slip = 1000.0
-back_compression = 0.1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_6eqyq")
@@ -57,8 +48,9 @@ shape = SubResource("BoxShape3D_cpqll")
 [node name="WheelFrontRight" type="VehicleWheel3D" parent="."]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1, 0, -1.245)
 use_as_steering = true
-wheel_friction_slip = 50.83
-suspension_stiffness = 1000.0
+wheel_roll_influence = 0.0
+suspension_travel = 0.1
+suspension_stiffness = 200.0
 damping_compression = 1.9
 damping_relaxation = 2.0
 
@@ -69,8 +61,9 @@ mesh = SubResource("CylinderMesh_xxiyt")
 [node name="WheelBackRight" type="VehicleWheel3D" parent="."]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 1, 0, -1.245)
 use_as_traction = true
-wheel_friction_slip = 60.0
-suspension_stiffness = 1000.0
+wheel_roll_influence = 0.0
+suspension_travel = 0.1
+suspension_stiffness = 200.0
 suspension_max_force = 6000.95
 damping_compression = 1.9
 damping_relaxation = 2.0
@@ -82,8 +75,9 @@ mesh = SubResource("CylinderMesh_xxiyt")
 [node name="WheelFrontLeft" type="VehicleWheel3D" parent="."]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1, 0, 1.25539)
 use_as_steering = true
-wheel_friction_slip = 100.0
-suspension_stiffness = 1000.0
+wheel_roll_influence = 0.0
+suspension_travel = 0.1
+suspension_stiffness = 200.0
 damping_compression = 1.9
 damping_relaxation = 2.0
 
@@ -94,8 +88,9 @@ mesh = SubResource("CylinderMesh_xxiyt")
 [node name="WheelBackLeft" type="VehicleWheel3D" parent="."]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 1, 0, 1.25539)
 use_as_traction = true
-wheel_friction_slip = 60.0
-suspension_stiffness = 1000.0
+wheel_roll_influence = 0.0
+suspension_travel = 0.1
+suspension_stiffness = 200.0
 damping_compression = 1.9
 damping_relaxation = 2.0
 
@@ -115,3 +110,8 @@ current = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_18tkg")
+
+[node name="PlayerName" type="Label3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.885286, 0)
+text = "playername"
+font_size = 128

@@ -13,6 +13,7 @@ var player_name: StringName = ""
 func _ready() -> void:
 	multiplayer.peer_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
+	print(IP.get_local_interfaces())
 
 
 func create_client(addr: String, port: int) -> void:
