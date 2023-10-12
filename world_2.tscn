@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dxpya1wxl1o5v"]
+[gd_scene load_steps=9 format=3 uid="uid://dxpya1wxl1o5v"]
 
-[ext_resource type="PackedScene" uid="uid://dxup7b3orsq1" path="res://kart.tscn" id="1_v7ald"]
+[ext_resource type="PackedScene" uid="uid://bwr22vfy7ne51" path="res://vroom_vroom.tscn" id="1_ginq2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_df8j5"]
 
@@ -21,7 +21,12 @@ _data = {
 point_count = 11
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_umyki"]
-albedo_color = Color(0.156863, 0.156863, 0.156863, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vbdlt"]
+albedo_color = Color(0.258824, 0.258824, 0.258824, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2gagg"]
+albedo_color = Color(0.227451, 0.227451, 0.227451, 1)
 
 [node name="World2" type="Node3D"]
 
@@ -46,5 +51,35 @@ path_u_distance = 1.0
 path_joined = false
 material = SubResource("StandardMaterial3D_umyki")
 
-[node name="Kart" parent="." instance=ExtResource("1_v7ald")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.004, 10, 0)
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="."]
+use_collision = true
+polygon = PackedVector2Array(0, 0, 0, 3, 1, 3, 1, 0)
+mode = 2
+path_node = NodePath("../Path3D")
+path_interval_type = 0
+path_interval = 2.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = SubResource("StandardMaterial3D_vbdlt")
+
+[node name="CSGPolygon3D3" type="CSGPolygon3D" parent="."]
+use_collision = true
+polygon = PackedVector2Array(24, 0, 24, 3, 25, 3, 25, 0)
+mode = 2
+path_node = NodePath("../Path3D")
+path_interval_type = 0
+path_interval = 2.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = SubResource("StandardMaterial3D_2gagg")
+
+[node name="VroomVroom" parent="." instance=ExtResource("1_ginq2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.006, 4.3717, 0)

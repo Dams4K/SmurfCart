@@ -3,9 +3,10 @@ extends VehicleBody3D
 const MAX_RPM = 2750
 const MAX_TORQUE = 750
 const MAX_STEER = 0.4
-const STEER_SPEED = 1.5
+const STEER_SPEED = 1.0
 
 var phone = OS.has_feature("android")
+#var phone = true
 
 @onready var phone_control: Control = $PhoneControl
 
@@ -19,11 +20,12 @@ var phone = OS.has_feature("android")
 @onready var player_name: Label3D = $PlayerName
 
 func _ready() -> void:
-	multiplayer_synchronizer.set_multiplayer_authority(name.to_int())
-	player_name.text = MultiplayerManager.players[name.to_int()].name
-	if multiplayer_synchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
-		player_name.hide()
-	
+	if !MultiplayerManager.players.is_empty():
+		multiplayer_synchronizer.set_multiplayer_authority(name.to_int())
+		player_name.text = MultiplayerManager.players[name.to_int()].name
+		if multiplayer_synchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
+			player_name.hide()
+		
 	phone_control.visible = phone
 
 func _process(delta: float) -> void:
@@ -41,7 +43,7 @@ func _physics_process(delta: float) -> void:
 		
 		acceleration = Input.get_axis("back", "forward")
 	else:
-		steering = lerp(steering, -Input.get_accelerometer().x / 5 * MAX_STEER, delta * STEER_SPEED)
+		steering = lerp(steering, -phone_control.get_steering() * MAX_STEER, delta * STEER_SPEED)
 		
 		if PhoneControls.brake:
 			acceleration = -1

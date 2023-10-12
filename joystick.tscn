@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://4tuto4gok73n"]
+
+[ext_resource type="Script" path="res://joystick.gd" id="1_5jofp"]
+
+[node name="Joystick" type="TouchScreenButton"]
+script = ExtResource("1_5jofp")
